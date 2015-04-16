@@ -1,0 +1,19 @@
+{
+  "name": "react-translate",
+  "version": "0.0.3",
+  "authors": [
+    "bltnico <bellot.n@gmail.com>"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.13.1"
+  }
+}
