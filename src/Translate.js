@@ -63,6 +63,9 @@ var Translate = React.createClass({
             }
             return window.ReactTranslate.detectNavigatorLocale = bool;
         },
+        setLocale : function(locale) {
+            return window.ReactTranslate.currentLocale = locale;
+        },
         setDefaultLocale : function(locale) {
             return window.ReactTranslate.defaultLocale = locale;
         },
@@ -117,6 +120,21 @@ Translate.registerTranslation("en", {
 Translate.autoDetectLocale(true);
 
 
+var LangSwitcher = React.createClass({
+    handleChange : function() {
+        console.log('ok');
+        Translate.setLocale("fr");
+    },
+    render : function() {
+        return (
+            <select onChange={this.handleChange}>
+                <option value="fr">Français</option>
+                <option value="en">Anglais</option>
+            </select>
+        )
+    }
+});
+
 var Test = React.createClass({
     render : function() {
         return (
@@ -125,6 +143,9 @@ var Test = React.createClass({
                 <p><Translate from="TEST" /></p>
                 <div>
                     <Translate from="TITLE" element="b" />
+                    <div>
+                        <LangSwitcher />
+                    </div>
                 </div>
             </div>
         )
