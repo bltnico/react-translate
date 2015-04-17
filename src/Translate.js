@@ -3,6 +3,7 @@ window.ReactTranslate = {};
 window.ReactTranslate.defaultLocale = "en";
 window.ReactTranslate.currentLocale = "";
 window.ReactTranslate.fallbackLocale = "en";
+window.ReactTranslate.availableLocale = [];
 window.ReactTranslate.detectNavigatorLocale = true;
 
 var TranslateMixin = {
@@ -64,13 +65,28 @@ var Translate = React.createClass({
             return window.ReactTranslate.detectNavigatorLocale = bool;
         },
         setLocale : function(locale) {
-            return window.ReactTranslate.currentLocale = locale;
+            if(this.getAvailableLocale().length > 0) {
+                var availables = this.getAvailableLocale();
+                if(availables[locale] != undefined) {
+                    return window.ReactTranslate.currentLocale = locale;
+                }
+            } else {
+                return window.ReactTranslate.currentLocale = locale;
+            }
         },
         setDefaultLocale : function(locale) {
             return window.ReactTranslate.defaultLocale = locale;
         },
         setFallbackLocale : function(locale) {
             return window.ReactTranslate.fallbackLocale = locale;
+        },
+        setAvailableLocales : function(locales) {
+            if(typeof locales == "object") {
+                return window.ReactTranslate.availableLocale = locales;
+            }
+        },
+        getAvailableLocale : function() {
+            return window.ReactTranslate.availableLocale;
         }
     },
     propTypes : {
@@ -118,12 +134,12 @@ Translate.registerTranslation("en", {
 });
 
 Translate.autoDetectLocale(true);
-
+Translate.setAvailableLocales(['fr','en']);
 
 var LangSwitcher = React.createClass({
     handleChange : function() {
         console.log('ok');
-        Translate.setLocale("fr");
+        Translate.setLocale("en");
     },
     render : function() {
         return (
