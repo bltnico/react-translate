@@ -6,6 +6,10 @@ window.ReactTranslate.fallbackLocale = "en";
 window.ReactTranslate.availableLocale = [];
 window.ReactTranslate.detectNavigatorLocale = true;
 
+var onTranslationChange = document.createEvent("Event");
+onTranslationChange.initEvent("onTranslationChange", true, true);
+onTranslationChange.locale = "";
+
 var TranslateMixin = {
     xhr : function(opts, callback) {
         opts.method = opts.method || "GET";
@@ -113,6 +117,11 @@ var Translate = React.createClass({
         } else {
             this.setState({ locale: this.getLocale() });
         }
+
+        var that = this;
+        document.addEventListener('onTranslationChange', function(e){
+            that.setState({ locale : e.locale });
+        }, false);
     },
     render: function(){
         var translation = window.ReactTranslate[this.state.locale][this.props.from];
@@ -137,9 +146,10 @@ Translate.autoDetectLocale(true);
 Translate.setAvailableLocales(['fr','en']);
 
 var LangSwitcher = React.createClass({
-    handleChange : function() {
-        console.log('ok');
-        Translate.setLocale("en");
+    handleChange : function(e) {
+        Translate.setLocale(e.target.value);
+        onTranslationChange.locale = e.target.value;
+        document.dispatchEvent(onTranslationChange);
     },
     render : function() {
         return (
