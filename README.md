@@ -1,5 +1,9 @@
 # React Translate
 
+### How install ?
+
+Easy use with bower : `bower install react-translate`
+
 ### How it work ?
 
 ```
