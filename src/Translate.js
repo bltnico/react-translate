@@ -133,11 +133,13 @@ var Translate = React.createClass({
 /** Test React Translate **/
 
 Translate.registerTranslation("fr", {
+    "REACT" : "Démonstration",
     "TEST" : "Ceci est un test",
     "TITLE" : "Un titre"
 });
 
 Translate.registerTranslation("en", {
+    "REACT" : "Demo",
     "TEST" : "This is a test",
     "TITLE" : "Wow title !"
 });
@@ -165,7 +167,7 @@ var Test = React.createClass({
     render : function() {
         return (
             <div>
-                <h1>Non traduit</h1>
+                <Translate from="REACT" element="h1"/>
                 <p><Translate from="TEST" /></p>
                 <div>
                     <Translate from="TITLE" element="b" />
