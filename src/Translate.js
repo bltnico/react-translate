@@ -1,8 +1,8 @@
 if(window.ReactTranslate !== undefined) throw Error("[ReactTranslate] ReactTranslate is already definded.");
 window.ReactTranslate = {};
-window.ReactTranslate.defaultLocale = "en";
+window.ReactTranslate.defaultLocale = "en_US";
 window.ReactTranslate.currentLocale = "";
-window.ReactTranslate.fallbackLocale = "en";
+window.ReactTranslate.fallbackLocale = "en_US";
 window.ReactTranslate.availableLocale = [];
 window.ReactTranslate.detectNavigatorLocale = true;
 
@@ -11,6 +11,7 @@ onTranslationChange.initEvent("onTranslationChange", true, true);
 onTranslationChange.locale = "";
 
 var TranslateMixin = {
+
     xhr : function(opts, callback) {
         opts.method = opts.method || "GET";
         opts.url = opts.url || "/";
@@ -24,14 +25,17 @@ var TranslateMixin = {
         xhr.open(opts.method, opts.url, true);
         xhr.send();
     },
+
     loadExternalFile : function(lang, url) {
         this.xhr({ url : url }, function(translation) {
             window.ReactTranslate[lang] = JSON.parse(translation);
         });
     },
+
     isValidLocale : function(locale) {
         return window.ReactTranslate.hasOwnProperty(locale);
     },
+
     getLocale : function() {
         if(window.ReactTranslate.currentLocale !== undefined){
             if(this.isValidLocale(window.ReactTranslate.currentLocale)) {
@@ -49,17 +53,23 @@ var TranslateMixin = {
             }
         }
     }
+
 };
 
 var Translate = React.createClass({
+
     mixins : [TranslateMixin],
+
     statics : {
+
         registerTranslation : function(locale, translation) {
             return window.ReactTranslate[locale] = translation;
         },
+
         registerExternalTranslation : function(lang, url) {
             return TranslateMixin.loadExternalFile(lang, url);
         },
+
         autoDetectLocale : function(bool) {
             bool = bool || window.ReactTranslate.detectNavigatorLocale || true;
             if(bool) {
@@ -68,45 +78,68 @@ var Translate = React.createClass({
             }
             return window.ReactTranslate.detectNavigatorLocale = bool;
         },
+
         setLocale : function(locale) {
             if(this.getAvailableLocale().length > 0) {
                 var availables = this.getAvailableLocale();
-                if(availables[locale] != undefined) {
+                return window.ReactTranslate.currentLocale = locale;
+
+                /* if(!availables.indexOf(locale) == -1) {
                     return window.ReactTranslate.currentLocale = locale;
-                }
+                } */
+
             } else {
                 return window.ReactTranslate.currentLocale = locale;
             }
         },
+
+        getLocale : function() {
+            return window.ReactTranslate.currentLocale;
+        },
+
         setDefaultLocale : function(locale) {
             return window.ReactTranslate.defaultLocale = locale;
         },
+
         setFallbackLocale : function(locale) {
             return window.ReactTranslate.fallbackLocale = locale;
         },
+
         setAvailableLocales : function(locales) {
             if(typeof locales == "object") {
                 return window.ReactTranslate.availableLocale = locales;
             }
         },
+
         getAvailableLocale : function() {
             return window.ReactTranslate.availableLocale;
+        },
+
+        updateTranslation : function(locale) {
+            Translate.setLocale(locale);
+            onTranslationChange.locale = locale;
+            document.dispatchEvent(onTranslationChange);
         }
+
     },
+
     propTypes : {
         element : React.PropTypes.string,
         from : React.PropTypes.string.isRequired
     },
+
     getDefaultProps: function() {
         return {
             element : 'span'
         };
     },
+
     getInitialState: function() {
         return {
             element : this.props.element
         };
     },
+
     componentWillMount: function() {
         if(this.props.locale) {
             if(this.isValidLocale(this.props.locale)) {
@@ -123,41 +156,49 @@ var Translate = React.createClass({
             that.setState({ locale : e.locale });
         }, false);
     },
+
     render: function(){
         var translation = window.ReactTranslate[this.state.locale][this.props.from];
-        return React.createElement(this.state.element, null, translation);
+
+        if(this.state.element == "input" || this.state.element == "textarea") {
+            return React.createElement(this.state.element, { placeholder : translation }, null);
+        } else {
+            return React.createElement(this.state.element, null, translation);
+        }
     }
+
 });
 
 
 /** Test React Translate **/
 
-Translate.registerTranslation("fr", {
+Translate.registerTranslation("fr_FR", {
+    "START_WITH" : "Accèder à Oddly",
     "REACT" : "Démonstration",
     "TEST" : "Ceci est un test",
     "TITLE" : "Un titre"
 });
 
-Translate.registerTranslation("en", {
+Translate.registerTranslation("en_US", {
+    "START_WITH" : "Start with Oddly",
     "REACT" : "Demo",
     "TEST" : "This is a test",
     "TITLE" : "Wow title !"
 });
 
 Translate.autoDetectLocale(true);
-Translate.setAvailableLocales(['fr','en']);
+Translate.setAvailableLocales(['fr_FR','en_US']);
+Translate.setLocale("fr_FR");
 
 var LangSwitcher = React.createClass({
     handleChange : function(e) {
-        Translate.setLocale(e.target.value);
-        onTranslationChange.locale = e.target.value;
-        document.dispatchEvent(onTranslationChange);
+        Translate.updateTranslation(e.target.value);
     },
     render : function() {
         return (
             <select onChange={this.handleChange}>
-                <option value="fr">Français</option>
-                <option value="en">Anglais</option>
+                <option value="fr_FR">Français</option>
+                <option value="en_US">Anglais</option>
             </select>
         )
     }
@@ -174,6 +215,8 @@ var Test = React.createClass({
                     <div>
                         <LangSwitcher />
                     </div>
+                    <button><Translate from="START_WITH" /></button>
+                    <Translate from="START_WITH" element="input" />
                 </div>
             </div>
         )
