@@ -11,11 +11,9 @@
         "url": "https://github.com/bltnico/react-translate.git"
     },
     "ignore": [
-        "**/.*",
         "node_modules",
         "bower_components",
-        "test",
-        "tests"
+        "src"
     ],
     "dependencies": {
         "react": "~0.13.1"
