@@ -4,7 +4,7 @@
     "authors": [
         "Nicolas Bellot <nico@oddly.fr>"
     ],
-    "main": "dist/Translate.js",
+    "main": "dist/min/Translate.js",
     "license": "MIT",
         "repository": {
         "type": "git",
