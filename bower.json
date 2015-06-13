@@ -6,15 +6,10 @@
     ],
     "main": "dist/min/Translate.js",
     "license": "MIT",
-        "repository": {
+    "repository": {
         "type": "git",
         "url": "https://github.com/bltnico/react-translate.git"
     },
-    "ignore": [
-        "node_modules",
-        "bower_components",
-        "src"
-    ],
     "dependencies": {
         "react": "~0.13.1"
     }
