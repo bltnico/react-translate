@@ -6,7 +6,7 @@ module.exports = function(grunt) {
            options: {
                mangle: false,
                report: 'gzip',
-               banner: "/** React Translate \n * @author bltnico \n * @repository https://github.com/bltnico/react-translate \n */ \n"
+               banner: "/** \n * React Translate \n * \n * @author bltnico \n * @repository https://github.com/bltnico/react-translate \n */ \n"
            },
            target : {
                files : [{

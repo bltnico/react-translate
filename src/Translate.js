@@ -266,7 +266,6 @@ var Translate = React.createClass({
     },
 
     render: function(){
-        console.log(this.props.props);
         var translation = window.ReactTranslate[this.state.locale][this.props.from];
 
         if(this.state.element == "input" || this.state.element == "textarea") {
