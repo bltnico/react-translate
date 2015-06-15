@@ -5,6 +5,7 @@ window.ReactTranslate.currentLocale = "";
 window.ReactTranslate.fallbackLocale = "en_US";
 window.ReactTranslate.availableLocale = [];
 window.ReactTranslate.detectNavigatorLocale = true;
+window.ReactTranslate.useLocalStorage = true;
 
 var onTranslationChange = document.createEvent("Event");
 onTranslationChange.initEvent("onTranslationChange", true, true);
@@ -62,6 +63,22 @@ var Translate = React.createClass({
 
     statics : {
 
+        initTranslation : function(locale) {
+            if(window.ReactTranslate.useLocalStorage) {
+                if(window.localStorage !== undefined) {
+                    if(localStorage.getItem("__react_translate")) {
+                        return Translate.setLocale(localStorage.getItem("__react_translate"));
+                    }
+                }
+            } else {
+                if(locale) {
+                    return Translate.setLocale(locale);
+                } else {
+                    throw Error("[ReactTranslate] Empty locale for 'initTranslation' method");
+                }
+            }
+        },
+
         registerTranslation : function(locale, translation) {
             return window.ReactTranslate[locale] = translation;
         },
@@ -82,6 +99,11 @@ var Translate = React.createClass({
         setLocale : function(locale) {
             if(this.getAvailableLocale().length > 0) {
                 var availables = this.getAvailableLocale();
+
+                if(window.ReactTranslate.useLocalStorage) {
+                    localStorage.setItem("__react_translate", locale);
+                }
+
                 return window.ReactTranslate.currentLocale = locale;
 
                 /* if(!availables.indexOf(locale) == -1) {
@@ -116,9 +138,17 @@ var Translate = React.createClass({
         },
 
         updateTranslation : function(locale) {
-            Translate.setLocale(locale);
-            onTranslationChange.locale = locale;
-            document.dispatchEvent(onTranslationChange);
+            if(locale) {
+                Translate.setLocale(locale);
+                onTranslationChange.locale = locale;
+                return document.dispatchEvent(onTranslationChange);
+            } else {
+                throw Error("[ReactTranslate] Empty locale for 'updateTranslation' method");
+            }
+        },
+
+        useLocalStorage : function(bool) {
+            return window.ReactTranslate.useLocalStorage = bool;
         }
 
     },
