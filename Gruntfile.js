@@ -5,7 +5,8 @@ module.exports = function(grunt) {
         uglify: {
            options: {
                mangle: false,
-               report: 'gzip'
+               report: 'gzip',
+               banner: "/** React Translate \n * @author bltnico \n * @repository https://github.com/bltnico/react-translate \n */ \n"
            },
            target : {
                files : [{
