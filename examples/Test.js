@@ -44,7 +44,8 @@ var Test = React.createClass({displayName: "Test",
                         React.createElement(LangSwitcher, null)
                     ),
                     React.createElement("button", null, React.createElement(Translate, {from: "START_WITH"})),
-                    React.createElement(Translate, {from: "START_WITH", element: "input"})
+                    React.createElement(Translate, {from: "START_WITH", element: "input"}),
+                    React.createElement(Translate, {from: "START_WITH", element: "button", props : { disabled : "true" } })
                 )
             )
         )

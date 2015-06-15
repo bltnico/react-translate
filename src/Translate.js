@@ -231,12 +231,14 @@ var Translate = React.createClass({
 
     propTypes : {
         element : React.PropTypes.string,
-        from : React.PropTypes.string.isRequired
+        from : React.PropTypes.string.isRequired,
+        props : React.PropTypes.object
     },
 
     getDefaultProps: function() {
         return {
-            element : 'span'
+            element : 'span',
+            props : {}
         };
     },
 
@@ -264,12 +266,13 @@ var Translate = React.createClass({
     },
 
     render: function(){
+        console.log(this.props.props);
         var translation = window.ReactTranslate[this.state.locale][this.props.from];
 
         if(this.state.element == "input" || this.state.element == "textarea") {
             return React.createElement(this.state.element, { placeholder : translation }, null);
         } else {
-            return React.createElement(this.state.element, null, translation);
+            return React.createElement(this.state.element, this.props.props , translation);
         }
     }
 
