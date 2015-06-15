@@ -1,15 +1,27 @@
-if(window.ReactTranslate !== undefined) throw Error("[ReactTranslate] ReactTranslate is already definded.");
-window.ReactTranslate = {};
-window.ReactTranslate.defaultLocale = "en_US";
-window.ReactTranslate.currentLocale = "";
-window.ReactTranslate.fallbackLocale = "en_US";
-window.ReactTranslate.availableLocale = [];
-window.ReactTranslate.detectNavigatorLocale = true;
-window.ReactTranslate.useLocalStorage = true;
+if(window.ReactTranslate == undefined) {
 
-var onTranslationChange = document.createEvent("Event");
-onTranslationChange.initEvent("onTranslationChange", true, true);
-onTranslationChange.locale = "";
+    window.ReactTranslate = {
+        defaultLocale : "en_US",
+        currentLocale : "",
+        fallbackLocale : "en_US",
+        availableLocale : [],
+        detectNavigatorLocale : true,
+        useLocalStorage : true
+    };
+
+    try {
+
+        var onTranslationChange = document.createEvent("Event");
+        onTranslationChange.initEvent("onTranslationChange", true, true);
+        onTranslationChange.locale = "";
+
+    } catch(e) {
+        throw Error("[ReactTranslate] " + e);
+    }
+
+} else {
+    throw Error("[ReactTranslate] ReactTranslate is already defined.");
+}
 
 var TranslateMixin = {
 

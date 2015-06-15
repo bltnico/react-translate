@@ -1,15 +1,27 @@
-if(window.ReactTranslate !== undefined) throw Error("[ReactTranslate] ReactTranslate is already definded.");
-window.ReactTranslate = {};
-window.ReactTranslate.defaultLocale = "en_US";
-window.ReactTranslate.currentLocale = "";
-window.ReactTranslate.fallbackLocale = "en_US";
-window.ReactTranslate.availableLocale = [];
-window.ReactTranslate.detectNavigatorLocale = true;
-window.ReactTranslate.useLocalStorage = true;
+if(window.ReactTranslate == undefined) {
 
-var onTranslationChange = document.createEvent("Event");
-onTranslationChange.initEvent("onTranslationChange", true, true);
-onTranslationChange.locale = "";
+    window.ReactTranslate = {
+        defaultLocale : "en_US",
+        currentLocale : "",
+        fallbackLocale : "en_US",
+        availableLocale : [],
+        detectNavigatorLocale : true,
+        useLocalStorage : true
+    };
+
+    try {
+
+        var onTranslationChange = document.createEvent("Event");
+        onTranslationChange.initEvent("onTranslationChange", true, true);
+        onTranslationChange.locale = "";
+
+    } catch(e) {
+        throw Error("[ReactTranslate] " + e);
+    }
+
+} else {
+    throw Error("[ReactTranslate] ReactTranslate is already defined.");
+}
 
 var TranslateMixin = {
 
@@ -63,6 +75,12 @@ var Translate = React.createClass({displayName: "Translate",
 
     statics : {
 
+        /**
+         * Init Translation method
+         *
+         * @param {String} locale
+         * @param {Function}
+         */
         initTranslation : function(locale) {
             if(window.ReactTranslate.useLocalStorage) {
                 if(window.localStorage !== undefined) {
@@ -79,14 +97,30 @@ var Translate = React.createClass({displayName: "Translate",
             }
         },
 
+        /**
+         * Add a new translation lang
+         *
+         * @param {String} locale
+         * @param {Object} translation -> all translation for this locale
+         * @return
+         */
         registerTranslation : function(locale, translation) {
             return window.ReactTranslate[locale] = translation;
         },
 
+        /**
+         * @todo
+         */
         registerExternalTranslation : function(lang, url) {
             return TranslateMixin.loadExternalFile(lang, url);
         },
 
+        /**
+         * Auto detect locale with browser language
+         *
+         * @param {Boolean} bool
+         * @return
+         */
         autoDetectLocale : function(bool) {
             bool = bool || window.ReactTranslate.detectNavigatorLocale || true;
             if(bool) {
@@ -96,6 +130,12 @@ var Translate = React.createClass({displayName: "Translate",
             return window.ReactTranslate.detectNavigatorLocale = bool;
         },
 
+        /**
+         * Set locale as current lang
+         *
+         * @param {String} locale
+         * @return
+         */
         setLocale : function(locale) {
             if(this.getAvailableLocale().length > 0) {
                 var availables = this.getAvailableLocale();
@@ -115,28 +155,58 @@ var Translate = React.createClass({displayName: "Translate",
             }
         },
 
+        /**
+         * Get current locale
+         * @return {String} current locale
+         */
         getLocale : function() {
             return window.ReactTranslate.currentLocale;
         },
 
+        /**
+         * @todo : not used
+         */
         setDefaultLocale : function(locale) {
             return window.ReactTranslate.defaultLocale = locale;
         },
 
+        /**
+         * Set a fallback locale if a locale insn't exist
+         *
+         * @param {String} locale
+         * @return {String} fallback locale
+         */
         setFallbackLocale : function(locale) {
             return window.ReactTranslate.fallbackLocale = locale;
         },
 
+        /**
+         * Register all availables locales
+         *
+         * @param {Array} locales
+         * @return {Array}
+         */
         setAvailableLocales : function(locales) {
             if(typeof locales == "object") {
                 return window.ReactTranslate.availableLocale = locales;
             }
         },
 
+        /**
+         * Get all availables locales
+         *
+         * @return {Array}
+         */
         getAvailableLocale : function() {
             return window.ReactTranslate.availableLocale;
         },
 
+        /**
+         * Update translation with Javascript event
+         *
+         * @param {String} locale
+         * @return {Event}
+         */
         updateTranslation : function(locale) {
             if(locale) {
                 Translate.setLocale(locale);
@@ -147,6 +217,12 @@ var Translate = React.createClass({displayName: "Translate",
             }
         },
 
+        /**
+         * Enable localStorage
+         *
+         * @param {Boolean} bool
+         * @return {Boolean}
+         */
         useLocalStorage : function(bool) {
             return window.ReactTranslate.useLocalStorage = bool;
         }
