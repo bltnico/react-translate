@@ -16,6 +16,8 @@ Easy use with bower : `bower install react-component-translate --save`
 
 *Methods :*
 
+* `Translate.initTranslation();`
+
 * `Translate.registerTranslation();`
 
 * `Translate.autoDetectLocale();`
@@ -33,6 +35,8 @@ Easy use with bower : `bower install react-component-translate --save`
 * `Translate.getAvailableLocale();`
 
 * `Translate.updateTranslation();`
+
+* `Translate.useLocalStorage();`
 
 ### Dev test
 
