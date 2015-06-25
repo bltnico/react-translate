@@ -6,7 +6,13 @@ if(window.ReactTranslate == undefined) {
         fallbackLocale : "en_US",
         availableLocale : [],
         detectNavigatorLocale : true,
-        useLocalStorage : true
+        useLocalStorage : true,
+        objectMerge : function(o1, o2) {
+            var o3 = {};
+            for (var attr in o1) { o3[attr] = o1[attr]; }
+            for (var attr in o2) { o3[attr] = o2[attr]; }
+            return o3;
+        }
     };
 
     try {
@@ -138,7 +144,7 @@ var Translate = React.createClass({displayName: "Translate",
          * @param {String} locale
          * @return
          */
-        setLocale : function(locale) {            
+        setLocale : function(locale) {
             if(this.getAvailableLocale().length > 0) {
                 var availables = this.getAvailableLocale();
 
@@ -271,7 +277,8 @@ var Translate = React.createClass({displayName: "Translate",
         var translation = window.ReactTranslate[this.state.locale][this.props.from];
 
         if(this.state.element == "input" || this.state.element == "textarea") {
-            return React.createElement(this.state.element, { placeholder : translation }, null);
+            var renderProps = window.ReactTranslate.objectMerge(this.props.props, { placeholder : translation });
+            return React.createElement(this.state.element, renderProps, null);
         } else {
             return React.createElement(this.state.element, this.props.props , translation);
         }
