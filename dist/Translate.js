@@ -86,6 +86,8 @@ var Translate = React.createClass({displayName: "Translate",
                 if(window.localStorage !== undefined) {
                     if(localStorage.getItem("__react_translate")) {
                         return Translate.setLocale(localStorage.getItem("__react_translate"));
+                    } else {
+                        return Translate.setLocale(locale);
                     }
                 }
             } else {
@@ -136,7 +138,7 @@ var Translate = React.createClass({displayName: "Translate",
          * @param {String} locale
          * @return
          */
-        setLocale : function(locale) {
+        setLocale : function(locale) {            
             if(this.getAvailableLocale().length > 0) {
                 var availables = this.getAvailableLocale();
 
