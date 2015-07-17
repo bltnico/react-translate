@@ -17,6 +17,26 @@ var MenuList = {
     ]
 };
 
+var LangSwitcher = React.createClass({displayName: "LangSwitcher",
+
+    handleChange : function(e) {
+        return Translate.updateTranslation(e.target.value);
+    },
+
+    render : function() {
+        return (
+            React.createElement("div", null, 
+                React.createElement("select", {onChange: this.handleChange}, 
+                    Translate.getAvailableLocale().map(function(l,i){
+                        return React.createElement("option", {selected: Translate.getLocale() == l ? true : false, value: l}, l)
+                    })
+                )
+            )
+        )
+    }
+
+});
+
 var Menu = React.createClass({displayName: "Menu",
 
     render : function() {
@@ -39,7 +59,8 @@ var Menu = React.createClass({displayName: "Menu",
                             )
                         )
                     })
-                )
+                ), 
+                React.createElement(LangSwitcher, null)
             )
         )
     }
