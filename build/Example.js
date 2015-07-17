@@ -23,3 +23,19 @@ var ExampleDomElement = React.createClass({displayName: "ExampleDomElement",
 });
 
 React.render(React.createElement(ExampleDomElement, null), document.getElementById("dom-element-example-render"));
+
+var ExampleProps = React.createClass({displayName: "ExampleProps",
+    render : function() {
+        var props = {
+            disabled : true,
+            style : {
+                padding : "10px 14px",
+                backgroundColor : "#eee",
+                border : "1px solid #ddd"
+            }
+        }
+        return React.createElement(Translate, {from: "WITHPROPS", props: props, element: "button"})
+    }
+});
+
+React.render(React.createElement(ExampleProps, null), document.getElementById("props-example-render"));
