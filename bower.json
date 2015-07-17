@@ -1,16 +1,17 @@
 {
-    "name": "react-component-translate",
-    "version": "0.0.11",
-    "authors": [
-        "Nicolas Bellot <nico@oddly.fr>"
-    ],
-    "main": "dist/min/Translate.js",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/bltnico/react-translate.git"
-    },
-    "dependencies": {
-        "react": "~0.13.1"
-    }
+  "name": "react-component-translate",
+  "version": "0.0.11",
+  "authors": [
+    "Nicolas Bellot <nico@oddly.fr>"
+  ],
+  "main": "dist/min/Translate.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bltnico/react-translate.git"
+  },
+  "dependencies": {
+    "react": "~0.13.1",
+    "react-component-translate": "~0.1.0"
+  }
 }
