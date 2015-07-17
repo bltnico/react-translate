@@ -3,7 +3,7 @@
 var MenuList = {
     "Components" : [
         "Basic",
-        "With defaut lang",
+        "With default lang",
         "With DOM element",
         "With custom React component",
         "With props"

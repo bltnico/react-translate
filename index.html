@@ -14,14 +14,11 @@
                         render : function() {
                             return React.createElement("Translate", { from : "BASIC" });
                         }
-
-                        render : function() {
-                            return <Translate from="BASIC" />
-                        }
                     </code>
                 </pre>
+                <div id="basic-example-render"></div>
             </div>
-            <div id="with-defaut-lang">
+            <div id="with-default-lang">
                 <pre>
                     <code class="javascript">
                         render : function() {
@@ -29,15 +26,17 @@
                         }
                     </code>
                 </pre>
+                <div id="default-lang-example-render"></div>
             </div>
             <div id="with-dom-element">
                 <pre>
                     <code class="javascript">
                         render : function() {
-                            return React.createElement("Translate", { from : "DOMELEMENT", element="p" });
+                            return React.createElement("Translate", { from : "DOMELEMENT", element="h1" });
                         }
                     </code>
                 </pre>
+                <div id="dom-element-example-render"></div>
             </div>
             <div id="with-custom-react-component">
                 <pre>
@@ -59,9 +58,25 @@
             </div>
         </section>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.min.js"></script>
-        <script src="https://raw.githubusercontent.com/bltnico/react-translate/master/dist/min/Translate.js"></script>
+        <script src="bower_components/react-component-translate/dist/min/Translate.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            hljs.initHighlightingOnLoad();
+            Translate.registerTranslation("en_US", {
+                "BASIC" : "Basic example",
+                "DEFAULTLANG" : "Default lang example",
+                "DOMELEMENT" : "DOM element example "
+            });
+            Translate.registerTranslation("fr_FR", {
+                "BASIC" : "Exemple basique",
+                "DEFAULTLANG" : "Exemple avec une langue imposée",
+                "DOMELEMENT" : "Exemple avec un element spécifique du DOM : ici un titre h1"
+            });
+            Translate.autoDetectLocale(true);
+            Translate.setAvailableLocales(["fr_FR","en_US"]);
+            Translate.initTranslation("fr_FR");
+        </script>
         <script src="build/Menu.js"></script>
+        <script src="build/Example.js"></script>
     </body>
 </html>
