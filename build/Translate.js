@@ -1,7 +1,7 @@
 if(window.ReactTranslate == undefined) {
 
     window.ReactTranslate = {
-        version : "0.1.1",
+        version : "v0.1.1",
         defaultLocale : "en_US",
         currentLocale : "",
         fallbackLocale : "en_US",
