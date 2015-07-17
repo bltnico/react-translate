@@ -1,6 +1,7 @@
 if(window.ReactTranslate == undefined) {
 
     window.ReactTranslate = {
+        version : "v0.1.1",
         defaultLocale : "en_US",
         currentLocale : "",
         fallbackLocale : "en_US",
@@ -257,11 +258,12 @@ var Translate = React.createClass({
     },
 
     componentWillMount: function() {
-        if(this.props.locale) {
-            if(this.isValidLocale(this.props.locale)) {
-                this.setState({ locale: this.props.locale });
+        if(this.props.lang) {
+            if(this.isValidLocale(this.props.lang)) {
+                this.setState({ locale: this.props.lang });
             } else {
-                throw Error("[ReactTranslate] Unknow locale : '" + this.props.locale + "'");
+                console.error("[ReactTranslate] Unknow locale : '" + this.props.lang + "'");
+                console.error("[ReactTranslate] Availables locales : " + Translate.getAvailableLocale().toString());
             }
         } else {
             this.setState({ locale: this.getLocale() });
