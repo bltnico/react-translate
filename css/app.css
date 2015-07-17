@@ -1,0 +1,31 @@
+html, body { margin: 0; padding: 0; width: 100%; }
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+ul {
+    margin: 0;
+    padding: 0;
+}
+.wrapper {
+    width: 100%;
+    max-width: 1000px;
+    position: relative;
+    margin: 0 auto;
+}
+.wrapper aside {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 150px;
+}
+.wrapper main {
+    overflow: hidden;
+    width: 850px;
+    position: relative;
+    left: 150px;
+    top: 0;
+}
+#menu-react-render ul {
+    margin-bottom: 20px;
+}

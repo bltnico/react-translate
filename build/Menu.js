@@ -14,6 +14,9 @@ var MenuList = {
         "bla",
         "bla",
         "bla"
+    ],
+    "Other" : [
+        "LangSwitcher"
     ]
 };
 
@@ -53,6 +56,15 @@ var Menu = React.createClass({displayName: "Menu",
                 ), 
                 React.createElement("ul", null, 
                     MenuList.Methods.map(function(m,i){
+                        return (
+                            React.createElement("li", null, 
+                                React.createElement("a", {href: "#" + (m.replace(/\s/g,"-")).toLowerCase(), target: "_self"}, m)
+                            )
+                        )
+                    })
+                ), 
+                React.createElement("ul", null, 
+                    MenuList.Other.map(function(m,i){
                         return (
                             React.createElement("li", null, 
                                 React.createElement("a", {href: "#" + (m.replace(/\s/g,"-")).toLowerCase(), target: "_self"}, m)

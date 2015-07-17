@@ -4,89 +4,136 @@
         <meta charset="utf-8">
         <title></title>
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
+        <link rel="stylesheet" href="css/app.css">
     </head>
     <body>
-        <div id="menu-react-render"></div>
-        <section>
-            <div id="basic">
-                <pre>
-                    <code class="javascript">
-                        render : function() {
-                            return React.createElement("Translate", { from : "BASIC" });
-                        }
-                    </code>
-                </pre>
-                <div id="basic-example-render"></div>
-            </div>
-            <div id="with-default-lang">
-                <pre>
-                    <code class="javascript">
-                        render : function() {
-                            return React.createElement("Translate", { from : "DEFAUTLANG", lang : "en_US" });
-                        }
-                    </code>
-                </pre>
-                <div id="default-lang-example-render"></div>
-            </div>
-            <div id="with-dom-element">
-                <pre>
-                    <code class="javascript">
-                        render : function() {
-                            return React.createElement("Translate", { from : "DOMELEMENT", element : "h1" });
-                        }
-                    </code>
-                </pre>
-                <div id="dom-element-example-render"></div>
-            </div>
-            <div id="with-custom-react-component">
-                <pre>
-                    <code class="javascript">
-                        render : function() {
-                            return React.createElement("Translate", { from : "REACTCOMPONENT", element : "MyComponent" });
-                        }
-                    </code>
-                </pre>
-            </div>
-            <div id="with-props">
-                <pre>
-                    <code class="javascript">
-                        render : function() {
-                            var props = {
-                                disabled : true,
-                                style : {
-                                    padding : "10px 14px",
-                                    backgroundColor : "#eee",
-                                    border : "1px solid #ddd"
+
+        <div class="wrapper">
+
+            <aside>
+                <div id="menu-react-render"></div>
+            </aside>
+
+            <main>
+                <section>
+                    <h2>Components</h2>
+                    <div id="basic">
+                        <pre>
+                            <code class="javascript">
+                                render : function() {
+                                    return React.createElement("Translate", { from : "BASIC" });
                                 }
-                            }
-                            return React.createElement("Translate", { from : "WITHPROPS", element : "button", props : props });
-                        }
-                    </code>
-                </pre>
-                <div id="props-example-render"></div>
-            </div>
-        </section>
+                            </code>
+                        </pre>
+                        <div id="basic-example-render"></div>
+                    </div>
+                    <div id="with-default-lang">
+                        <pre>
+                            <code class="javascript">
+                                render : function() {
+                                    return React.createElement("Translate", { from : "DEFAUTLANG", lang : "en_US" });
+                                }
+                            </code>
+                        </pre>
+                        <div id="default-lang-example-render"></div>
+                    </div>
+                    <div id="with-dom-element">
+                        <pre>
+                            <code class="javascript">
+                                render : function() {
+                                    return React.createElement("Translate", { from : "DOMELEMENT", element : "h1" });
+                                }
+                            </code>
+                        </pre>
+                        <div id="dom-element-example-render"></div>
+                    </div>
+                    <div id="with-custom-react-component">
+                        <pre>
+                            <code class="javascript">
+                                render : function() {
+                                    return React.createElement("Translate", { from : "REACTCOMPONENT", element : "MyComponent" });
+                                }
+                            </code>
+                        </pre>
+                    </div>
+                    <div id="with-props">
+                        <pre>
+                            <code class="javascript">
+                                render : function() {
+                                    var props = {
+                                        disabled : true,
+                                        style : {
+                                            padding : "10px 14px",
+                                            backgroundColor : "#eee",
+                                            border : "1px solid #ddd"
+                                        }
+                                    }
+                                    return React.createElement("Translate", { from : "WITHPROPS", element : "button", props : props });
+                                }
+                            </code>
+                        </pre>
+                        <div id="props-example-render"></div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Other</h2>
+                    <div id="langswitcher">
+                        <pre>
+                            <code class="javascript">
+                                var LangSwitcher = React.createClass({displayName: "LangSwitcher",
+
+                                    handleChange : function(e) {
+                                        return Translate.updateTranslation(e.target.value);
+                                    },
+
+                                    render : function() {
+                                        return (
+                                            React.createElement("div", null,
+                                                React.createElement("select", {onChange: this.handleChange},
+                                                    Translate.getAvailableLocale().map(function(l,i){
+                                                        return React.createElement("option", {selected: Translate.getLocale() == l ? true : false, value: l}, l)
+                                                    })
+                                                )
+                                            )
+                                        )
+                                    }
+
+                                });
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+            </main>
+
+        </div>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.min.js"></script>
         <script src="bower_components/react-component-translate/dist/min/Translate.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
-        <script>
+
+        <script type="text/javascript">
             hljs.initHighlightingOnLoad();
+
             Translate.registerTranslation("en_US", {
                 "BASIC" : "Basic example",
                 "DEFAULTLANG" : "Default lang example",
                 "DOMELEMENT" : "DOM element example ",
                 "WITHPROPS" : "With components props"
             });
+
             Translate.registerTranslation("fr_FR", {
                 "BASIC" : "Exemple basique",
                 "DEFAULTLANG" : "Exemple avec une langue imposée",
                 "DOMELEMENT" : "Exemple avec un element spécifique du DOM : ici un titre h1",
                 "WITHPROPS" : "Avec des \"props\""
             });
+
             Translate.autoDetectLocale(true);
             Translate.setAvailableLocales(["fr_FR","en_US"]);
             Translate.initTranslation("fr_FR");
         </script>
+
         <script src="build/Menu.js"></script>
         <script src="build/Example.js"></script>
     </body>
