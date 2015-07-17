@@ -3,10 +3,65 @@
     <head>
         <meta charset="utf-8">
         <title></title>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/default.min.css">
     </head>
     <body>
-        <div id="react-render"></div>
+        <div id="menu-react-render"></div>
+        <section>
+            <div id="basic">
+                <pre>
+                    <code class="javascript">
+                        render : function() {
+                            return React.createElement("Translate", { from : "BASIC" });
+                        }
+
+                        render : function() {
+                            return <Translate from="BASIC" />
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div id="with-defaut-lang">
+                <pre>
+                    <code class="javascript">
+                        render : function() {
+                            return React.createElement("Translate", { from : "DEFAUTLANG", lang="en_US" });
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div id="with-dom-element">
+                <pre>
+                    <code class="javascript">
+                        render : function() {
+                            return React.createElement("Translate", { from : "DOMELEMENT", element="p" });
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div id="with-custom-react-component">
+                <pre>
+                    <code class="javascript">
+                        render : function() {
+                            return React.createElement("Translate", { from : "REACTCOMPONENT", element="MyComponent" });
+                        }
+                    </code>
+                </pre>
+            </div>
+            <div id="with-props">
+                <pre>
+                    <code class="javascript">
+                        render : function() {
+                            return React.createElement("Translate", { from : "WITHPROPS", props : { style : { margin : "0 15px" }, editable : true, loaded : false } });
+                        }
+                    </code>
+                </pre>
+            </div>
+        </section>
         <script src="bower_components/react/react.min.js"></script>
         <script src="bower_components/react-component-translate/dist/min/Translate.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script src="build/Menu.js"></script>
     </body>
 </html>
