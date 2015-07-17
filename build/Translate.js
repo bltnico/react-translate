@@ -76,7 +76,7 @@ var TranslateMixin = {
 
 };
 
-var Translate = React.createClass({
+var Translate = React.createClass({displayName: "Translate",
 
     mixins : [TranslateMixin],
 
