@@ -1,3 +1,5 @@
+[![Codacy Badge](https://www.codacy.com/project/badge/ab7d6b8f1eb64ba9912d41da84fff46b)](https://www.codacy.com/app/bellot-n/react-translate)
+
 # React Translate
 
 ### How install ?
